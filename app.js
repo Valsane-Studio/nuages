@@ -1,6 +1,11 @@
 
 (()=>{'use strict';
 const clouds=window.NUAGES_DATA || [];
+// Une galerie de référence permanente, puis éventuellement des vues supplémentaires via Wikimedia.
+for(const c of clouds){
+  const gallery=[...(c.files||[]),...(window.NUAGES_CURATED_PHOTOS?.[c.id]||[])];
+  c.files=[...new Set(gallery)];
+}
 const $=(id)=>document.getElementById(id);
 const by=(s)=>Array.from(document.querySelectorAll(s));
 const levels={haut:'NUAGE ÉLEVÉ',moyen:'NUAGE MOYEN',bas:'NUAGE BAS',vertical:'DÉVELOPPEMENT VERTICAL'};
@@ -24,7 +29,7 @@ function currentFiles(c){return uniqueFiles(c?.galleryFiles?.length?c.galleryFil
 function renderThumbs(c){const thumbs=$('photoThumbs');thumbs.replaceChildren();const arr=currentFiles(c);const hint=$('galleryHint');if(hint)hint.textContent=arr.length>1?arr.length+' photographies · Cliquez sur une miniature pour comparer les structures.':'Une photographie disponible · Recherche d’autres vues du même nuage…';arr.forEach((file,i)=>{const b=document.createElement('button');b.className='thumb';b.type='button';b.setAttribute('aria-label','Photographie '+(i+1));const img=document.createElement('img');img.alt='Vue '+(i+1);img.loading='lazy';img.src=imageFor(file,'thumb');img.onerror=()=>img.remove();b.append(img);b.addEventListener('click',()=>setPhoto(c,i));thumbs.append(b)})}
 async function loadExtraGallery(c){if(galleryCache.has(c.id)){c.galleryFiles=uniqueFiles([...(c.files||[]),...galleryCache.get(c.id)]);if(activeCloud&&activeCloud.id===c.id)renderThumbs(c);return}
  const query=searchQueries[c.id]||((c.name||'')+' cloud');
- try{const params=new URLSearchParams({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:'+query+ filetype:bitmap',gsrnamespace:'6',gsrlimit:'24',prop:'imageinfo',iiprop:'url|mime|extmetadata',iiurlwidth:'1450',iiextmetadatafilter:'Artist|LicenseShortName'});
+ try{const params=new URLSearchParams({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:query+' filetype:bitmap',gsrnamespace:'6',gsrlimit:'24',prop:'imageinfo',iiprop:'url|mime|extmetadata',iiurlwidth:'1450',iiextmetadatafilter:'Artist|LicenseShortName'});
  const r=await fetch('https://commons.wikimedia.org/w/api.php?'+params);if(!r.ok)throw Error('network');const data=await r.json();const pages=Object.values(data.query?.pages||{});const keywords=(searchKeywords[c.id]||[]).map(normalize);const extras=[];
  for(const pg of pages){const title=(pg.title||'').replace(/^File:/,'');const low=normalize(title.replace(/[_-]/g,' '));const info=pg.imageinfo?.[0];if(!title||!info||!/^image\/(jpeg|png|webp)$/i.test(info.mime||''))continue;if(galleryBlacklist.test(low))continue;if(keywords.length && !keywords.some(k=>low.includes(k)))continue;extras.push(title);if(extras.length>=8)break}
  galleryCache.set(c.id,extras);c.galleryFiles=uniqueFiles([...(c.files||[]),...extras]);if(activeCloud&&activeCloud.id===c.id){renderThumbs(c);by('.thumb').forEach((b,i)=>{b.classList.toggle('active',i===currentPhoto);b.setAttribute('aria-pressed',String(i===currentPhoto))})}}catch(_e){c.galleryFiles=uniqueFiles(c.files||[]);if(activeCloud&&activeCloud.id===c.id){renderThumbs(c);const hint=$('galleryHint');if(hint)hint.textContent='Autres photographies indisponibles pour le moment.'}}}
