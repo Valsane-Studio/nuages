@@ -154,3 +154,72 @@ window.NUAGES_DATA = [
 }
 ];
 
+
+// Sélection de photographies de nuages identifiées dans les catégories Wikimedia Commons.
+// Ces fichiers sont intégrés au catalogue pour rester disponibles même si la recherche dynamique échoue.
+window.NUAGES_CURATED_PHOTOS={
+  "ci": [
+    "Cirrus Clouds 01.jpg",
+    "Cirrus clouds 011.jpg",
+    "Cirrus uncinus.jpg",
+    "Cirrus floccus and uncinus.jpg",
+    "Cirrus uncinus und Cirrus fibratus.jpg"
+  ],
+  "cc": [
+    "Cirrocumulus Clouds 01.jpg",
+    "Cirrocumulus Clouds 02.jpg",
+    "Cirrocumulus Clouds 03.jpg"
+  ],
+  "cs": [
+    "(139) Cirrostratus.jpg",
+    "2014-12-09 15 06 39 High cirrostratus clouds moving into Elko, Nevada.JPG",
+    "2024-07-15 20 39 59 Cirrostratus clouds just after sunset viewed from Aquetong Lane in the Mountainview section of Ewing Township, Mercer County, New Jersey.jpg",
+    "2016-03-03 14 44 48 Cirrostratus and altostratus clouds moving in ahead of a storm system in Sterling, Virginia.jpg"
+  ],
+  "ac": [
+    "Altocumulus Clouds.jpg",
+    "Altocumulus Mackerel Sky.jpg",
+    "Altocumulus clouds10 - NOAA.jpg",
+    "Altocumulus stratiformis translucidus perlucidus.jpg"
+  ],
+  "as": [
+    "Altostratus Clouds 1.jpg",
+    "Altostratus Clouds 2.jpg",
+    "Altostratus Clouds 3.jpg",
+    "Altostratus Clouds 8.jpg"
+  ],
+  "ns": [
+    "Nimbostratus 01.jpg",
+    "Nimbostratus pannus.jpg",
+    "Nimbostratus praecipitatio.JPG",
+    "Nimbostratus over Tallinn.JPG"
+  ],
+  "sc": [
+    "Stratocumulus Cloud 01.jpg",
+    "Stratocumulus Cloud 03.jpg",
+    "Stratocumulus Cloud 05.jpg",
+    "Stratocumulus Cloud 08.jpg",
+    "Stratocumulus Cloud 10.jpg"
+  ],
+  "st": [
+    "Stratus cloud.jpg",
+    "Stratus nebulosus in Limburg, Panorama.jpg",
+    "Stratus nebulosus opacus and Stratus fractus (14122021).jpg",
+    "High Stratus nebulosus.jpg",
+    "Stratus nebulosus über Limburg, 25.11.2020.jpg"
+  ],
+  "cu": [
+    "Cumulus Clouds 1.jpg",
+    "Cumulus Clouds 3.jpg",
+    "Cumulus Humilis Clouds 1.jpg",
+    "Cumulus congestus Clouds 1.jpg",
+    "Cumulus Humilis Clouds 10.jpg"
+  ],
+  "cb": [
+    "Cumulonimbus Clouds 1.jpg",
+    "Cb calvus 1.jpg",
+    "Cumulonimbus capillatus 1.jpg",
+    "Cumulonimbus capillatus incus anvil cloud.jpg",
+    "Cumulonimbus capillatus in Lorraine, France.jpg"
+  ]
+};
